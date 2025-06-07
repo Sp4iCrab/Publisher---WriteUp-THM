@@ -2,13 +2,14 @@
 
 **Máquina de TryHackme**
 
+**Enumeracion Inicial**
+
 Al hacer un escaneo de puertos estándar con nmap encontramos 2 puertos abiertos:
 
 Puerto 22: SSH
 
 Puerto 80: HTTP
 
-**Enumeracion Inicial**
 
 ![](/images/Paso.001.png)
 
@@ -28,7 +29,7 @@ Al utilizar Gobuster logramos descubrir un directorio llamado /spip el cual nos 
 
 
 
-
+**Explotacion de SPIP**
 
 A partir de ahí solo nos lleva a más publicaciones y artículos sin mucha información de utilidad, al utilizar wappalyzer para ver las tecnologías que utiliza la página web, vemos la versión que utiliza spip.
 
@@ -43,6 +44,9 @@ El exploit funciono con total normalidad y ahora nos encontramos dentro de la ma
 Antes de seguir con la escalada de privilegios, en la sesión de metapreter tenemos acceso al directorio .ssh del usuario “think” y al contenido que se encuentra dentro, de esta manera copiamos el contenido del archivo id\_rsa o la llave privada del usuario a nuestra maquina local para poder acceder al servicio ssh encontrado al principio de la maquina como el usuario think sin necesidad de una contraseña. 
 
 ![](/images/Paso.007.png)
+
+
+**Post-Explotacion y escalada de privilegios**
 
 Ya dentro de ssh solo nos falta encontrar la manera de escalar privilegios, el usuario en el que estamos no tiene acceso a comandos o funcionalidades básicas como touch o de lectura y escritura incluso en sus propios directorios.
 
