@@ -8,7 +8,9 @@ Puerto 22: SSH
 
 Puerto 80: HTTP
 
-![Enumeracion Inicial](/images/Paso.001.png)
+**Enumeracion Inicial**
+
+![](/images/Paso.001.png)
 
 Al entrar a vemos una página web con una temática sobre revistas, historias de éxito, tutoriales y opiniones sobre spip. 
 
