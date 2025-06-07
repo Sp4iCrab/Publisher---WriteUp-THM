@@ -19,7 +19,7 @@ SPIP es un software libre de origen francés tipo sistema de gestión de conteni
 
 ![](/images/Paso.002.png)
 
-En dicha página web no logramos sacar nada de utilidad mas haya de SPIP, el codigo de fuente se ve en orden y la mayoría de links dentro de la página no sirven o llevan a links a paginas caídas o reales que no se ve que tengan que ver con la maquina.
+En dicha página web no logramos sacar nada de utilidad mas haya de SPIP, el codigo de fuente se ve en orden y la mayoría de links dentro de la página no sirven o llevan a paginas caídas o reales que no se ve que tengan que ver con la maquina.
 
 Al utilizar Gobuster logramos descubrir un directorio llamado /spip el cual nos lleva a una página web de SPIP.
 
