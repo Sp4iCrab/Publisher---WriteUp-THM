@@ -8,21 +8,21 @@ Puerto 22: SSH
 
 Puerto 80: HTTP
 
-![](/images/Aspose.Words.8d11e78b-b150-4fb6-9248-26b15c7105b4.001.png)
+![Enumeracion Inicial](/images/Paso.001.png)
 
 Al entrar a vemos una página web con una temática sobre revistas, historias de éxito, tutoriales y opiniones sobre spip. 
 
 SPIP es un software libre de origen francés tipo sistema de gestión de contenidos destinado a la producción de sitios web, orientado a revistas colaborativas en línea e inspirado en los roles de una redacción. Es principalmente utilizado en Francia, en sitios de prensa, en sitios de asociaciones sociales y políticas.
 
-![](/images/Aspose.Words.8d11e78b-b150-4fb6-9248-26b15c7105b4.002.png)
+![](/images/Paso.002.png)
 
 En dicha página web no logramos sacar nada de utilidad mas haya de SPIP, el codigo de fuente se ve en orden y la mayoría de links dentro de la página no sirven o llevan a links a paginas caídas o reales que no se ve que tengan que ver con la maquina.
 
 Al utilizar Gobuster logramos descubrir un directorio llamado /spip el cual nos lleva a una página web de SPIP.
 
-![](/images/Aspose.Words.8d11e78b-b150-4fb6-9248-26b15c7105b4.003.png)
+![](/images/Paso.003.png)
 
-![](/images/Aspose.Words.8d11e78b-b150-4fb6-9248-26b15c7105b4.004.png)
+![](/images/Paso.004.png)
 
 
 
@@ -30,30 +30,30 @@ Al utilizar Gobuster logramos descubrir un directorio llamado /spip el cual nos 
 
 A partir de ahí solo nos lleva a más publicaciones y artículos sin mucha información de utilidad, al utilizar wappalyzer para ver las tecnologías que utiliza la página web, vemos la versión que utiliza spip.
 
-![](/images/Aspose.Words.8d11e78b-b150-4fb6-9248-26b15c7105b4.005.png)
+![](/images/Paso.005.png)
 
 Al buscar la versión en internet encontramos un exploit para dicha versión de SPIP 4.2.0 relacionada a RCE o ejecución remota de codigo, dicho exploit se encuentra en metasploit asi que nos ahorramos tiempo preparando el exploit y utilizamos la automatización de metasploit.
 
-![](/images/Aspose.Words.8d11e78b-b150-4fb6-9248-26b15c7105b4.006.png)
+![](/images/Paso.006.png)
 
 El exploit funciono con total normalidad y ahora nos encontramos dentro de la maquina lo que nos permite viajar a la mayoría de directorios y archivos, asi encontramos la flag del usuario, ahora solo nos falta encontrar la manera de escalar privilegios y acceder al directorio root que es donde se encuentra la flag que hace falta para completar la máquina.
 
 Antes de seguir con la escalada de privilegios, en la sesión de metapreter tenemos acceso al directorio .ssh del usuario “think” y al contenido que se encuentra dentro, de esta manera copiamos el contenido del archivo id\_rsa o la llave privada del usuario a nuestra maquina local para poder acceder al servicio ssh encontrado al principio de la maquina como el usuario think sin necesidad de una contraseña. 
 
-![](/images/Aspose.Words.8d11e78b-b150-4fb6-9248-26b15c7105b4.007.png)
+![](/images/Paso.007.png)
 
 Ya dentro de ssh solo nos falta encontrar la manera de escalar privilegios, el usuario en el que estamos no tiene acceso a comandos o funcionalidades básicas como touch o de lectura y escritura incluso en sus propios directorios.
 
 Al buscar en el sistema por binarios o ejecutables que nos permitirán escalar de privilegios encontramos uno interesante y inusual llamado run\_container, al ejecutarlo nos aparece un menú sobre contenedores de Docker y la creacion y manejo de estos.
 
-![](/images/Aspose.Words.8d11e78b-b150-4fb6-9248-26b15c7105b4.008.png)
+![](/images/Paso.008.png)
 
-![](/images/Aspose.Words.8d11e78b-b150-4fb6-9248-26b15c7105b4.009.png)
+![](/images/Paso.009.png)
 
 
 Al utilizar el comando strings en run\_container encontramos un .sh con el mismo nombre, el comando strings es para inspeccionar el binario y detectar referencias a archivos o comandos internos, lo que nos permitió descubrir la existencia del script /opt/run\_container.sh.
 
-![](/images/Aspose.Words.8d11e78b-b150-4fb6-9248-26b15c7105b4.010.png)
+![](/images/Paso.010.png)
 
 -rwxrwxrwx 1 root root 25 Jun 7 20:10 /opt/run\_container.sh
 
@@ -84,7 +84,7 @@ find / -type d -perm -002 2>/dev/nullfind / -type d -perm -002 2>/dev/null
 
 O simplemente inspeccionamos directorios típicos para archivos temporales, y encontramos /dev/shm, que es un sistema de archivos temporal en memoria con permisos:
 
-![](/images/Aspose.Words.8d11e78b-b150-4fb6-9248-26b15c7105b4.011.png)
+![](/images/Paso.011.png)
 
 Al probar que efectivamente podíamos crear archivo y modificarlos decidimos crear uno llamado shell.sh con el siguiente contenido 
 
@@ -102,6 +102,6 @@ Esto permitió abrir una shell bash más potente, sin las limitaciones de ash, c
 
 Al cambiar el codigo por uno que invoca una shell root y luego ejecutarlo cambio nuestra shell por una root, con esto hecho finalmente tenemos acceso al directorio root y a la flag en ella permitiéndonos completar la máquina.
 
-![](/images/Aspose.Words.8d11e78b-b150-4fb6-9248-26b15c7105b4.012.png)
+![](/images/Paso.012.png)
 
-![](/images/Aspose.Words.8d11e78b-b150-4fb6-9248-26b15c7105b4.013.png)
+![](/images/Paso.013.png)
