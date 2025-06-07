@@ -35,7 +35,8 @@ A partir de ahí solo lleva a más publicaciones y artículos sin mucha informac
 
 ![](/images/Paso.005.png)
 
-Al buscar la versión en internet se encuentra un exploit para dicha versión de SPIP 4.2.0 relacionada a RCE o ejecución remota de codigo, dicho exploit se encuentra en metasploit asi que ahorramos tiempo preparando el exploit al simplemente utilizar la automatización de metasploit.
+Al buscar la versión en internet se encuentra un exploit para dicha versión de SPIP 4.2.0 relacionada a RCE o ejecución remota de codigo (CVE:
+2023-27372), dicho exploit se encuentra en metasploit asi que ahorramos tiempo preparando el exploit al simplemente utilizar la automatización de metasploit.
 
 ![](/images/Paso.006.png)
 
