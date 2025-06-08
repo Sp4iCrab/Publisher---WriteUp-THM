@@ -19,7 +19,7 @@ SPIP es un software libre de origen francés tipo sistema de gestión de conteni
 
 ![](/images/Paso.002.png)
 
-En dicha página web no se logra sacar nada de utilidad mas haya de SPIP, el codigo de fuente se ve en orden y la mayoría de links dentro de la página no sirven o llevan a paginas caídas o reales que no se ve que tengan que ver con la maquina.
+En dicha página web no se logra sacar nada de utilidad mas allá de SPIP, el codigo de fuente se ve en orden y la mayoría de links dentro de la página no sirven o llevan a paginas caídas o reales que no se ve que tengan que ver con la maquina.
 
 Al utilizar Gobuster se logra descubrir un directorio llamado /spip el cual lleva a una página web de SPIP.
 
@@ -37,6 +37,10 @@ A partir de ahí solo lleva a más publicaciones y artículos sin mucha informac
 
 Al buscar la versión en internet se encuentra un exploit para dicha versión de SPIP 4.2.0 relacionada a RCE o ejecución remota de codigo (CVE:
 2023-27372), dicho exploit se encuentra en metasploit asi que ahorramos tiempo preparando el exploit al simplemente utilizar la automatización de metasploit.
+
+Esta vulnerabilidad se debe a un fallo en la forma en que SPIP maneja la serialización de datos en formularios públicos (como los de recuperación de contraseña o contacto). Específicamente, el parámetro oubli puede ser manipulado para incluir código PHP malicioso serializado, que el servidor deserializa e interpreta sin la validación adecuada.
+
+Esto permite a un atacante remoto y sin necesidad de autenticación ejecutar código en el servidor (RCE), con los mismos permisos que el proceso del servidor web, en la mayoría de los casos, esto significa control total del sitio web y, potencialmente, acceso a otros sistemas si hay configuraciones inseguras.
 
 ![](/images/Paso.006.png)
 
