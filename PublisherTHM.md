@@ -68,7 +68,7 @@ Al utilizar el comando strings en run\_container encontramos un .sh con el mismo
 
 -rwxrwxrwx 1 root root 25 Jun 7 20:10 /opt/run\_container.sh
 
-Este script tiene permisos de lectura y ejecución para todos, entonces simplemente lo que tenemos que hacer es con un editor de texto como nano o vim modificar el codigo para invocar una shell root, ¿no? Aquí entraría el problema.
+Este script tiene permisos de lectura y ejecución para todos, entonces simplemente lo que tenemos que hacer es con un editor de texto como nano o vim modificar el codigo para obtener una shell como root, ¿no? Aquí entraría el problema.
 
 Se intento modificar o crear archivos en /opt, pero solo se recibian errores de permiso, incluso cuando se intento como usuario think (dueño del home y usuario con el que trabajamos).\
 Ejemplos:
@@ -81,7 +81,7 @@ Esto indicaba que había **r**estricciones de seguridad fuertes en el sistema, n
 
 AppArmor es un módulo de seguridad que puede restringir qué acciones pueden realizar ciertos procesos o usuarios, incluyendo limitaciones para crear, modificar o ejecutar archivos, incluso si los permisos POSIX lo permiten.
 
-Además, notamos que el tipo de shell que tenemos es ash y no bash, lo cual suele limitar funcionalidades y es común en entornos muy restringidos 
+Además, notamos que el tipo de shell que se tiene es ash y no bash, lo cual suele limitar funcionalidades y es común en entornos muy restringidos 
 
 Para saltarnos esas restricciones, se tenia que buscar un directorio en el sistema que:
 
@@ -93,7 +93,7 @@ Se uso comandos como:
 
 find / -type d -perm -002 2>/dev/nullfind / -type d -perm -002 2>/dev/null
 
-O simplemente inspeccionamos directorios típicos para archivos temporales, y asi se logro encontrar /dev/shm, que es un sistema de archivos temporal en memoria con permisos:
+O simplemente se inspecciono directorios típicos para archivos temporales, y asi se logro encontrar /dev/shm, que es un sistema de archivos temporal en memoria con permisos:
 
 ![](/images/Paso.011.png)
 
@@ -109,9 +109,9 @@ chmod +x /dev/shm/shell.sh
 
 ./dev/shm/shell.sh
 
-Esto permitió abrir una shell bash más potente, sin las limitaciones de ash, con mejor manejo de comandos, más funcionalidades y lo más importante: permitió editar el ejecutable que se encontraba dentro de /opt/run\_container, que recordemos tiene permisos de root.
+Esto permitió obtener una shell bash más potente, sin las limitaciones de ash, con mejor manejo de comandos, más funcionalidades y lo más importante: permitió editar el ejecutable que se encontraba dentro de /opt/run\_container, que recordemos tiene permisos de root.
 
-Al cambiar el codigo por uno que invoca una shell root y luego ejecutarlo cambio la shell por una root, con esto hecho finalmente se logro el acceso al directorio root y a la flag en ella permitiéndo completar la máquina.
+Al cambiar el codigo por uno que obtiene una shell root y luego ejecutarlo, cambio la shell por una root, con esto hecho finalmente se logro el acceso al directorio root y a la flag en ella permitiéndo completar la máquina.
 
 ![](/images/Paso.012.png)
 
