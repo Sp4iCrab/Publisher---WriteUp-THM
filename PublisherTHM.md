@@ -97,7 +97,7 @@ O simplemente inspeccionamos directorios típicos para archivos temporales, y as
 
 ![](/images/Paso.011.png)
 
-Al probar que efectivamente se podia crear archivo y modificarlos se decidio crear uno llamado shell.sh con el siguiente contenido 
+Al probar que efectivamente se podian crear archivos y modificarlos se decidio crear uno llamado shell.sh con el siguiente contenido 
 
 #!/bin/bash
 
